@@ -16,6 +16,8 @@ const useFetcher = (endpoint, query) => {
     params: { ...query },
   };
 
+  
+
   const fetchData = async () => {
     setIsLoading(true);
 
