@@ -13,25 +13,24 @@ import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import useFetcher from "../../../hook/useFetcher";
 
-
 const Popularjobs = () => {
   const router = useRouter();
   // const isLoading = false ;
   // const error = false;
 
-
- const {data , isLoading , error } = useFetcher( 'search',{
-   query:'React developer',
-   num_pages: "1",
+  const { data, isLoading, error } = useFetcher("search", {
+    query: "React developer",
+    num_pages: "1",
   });
 
   // console.log(data)
 
-  const [selectedJob, setselectedJob] = useState()
+  const [selectedJob, setselectedJob] = useState();
 
   const handleCardPress = (item) => {
-
-  }
+    router.push(`/job-details/${item.job_id}`);
+    setselectedJob(item.job_id);
+  };
 
   return (
     <View style={styles.container}>
@@ -47,17 +46,18 @@ const Popularjobs = () => {
         ) : error ? (
           <Text>something went wrong </Text>
         ) : (
-          <FlatList data={data} 
-          renderItem={({item}) => (
-            <PopularJobCard  
-             item={item}
-             selectedJob={selectedJob}
-             handleCardPress={handleCardPress}
-            />
-          )}
-          keyExtractor={item => item.job_id}
-          contentContainerStyle={{columnGap:SIZES.medium}}
-          horizontal
+          <FlatList
+            data={data}
+            renderItem={({ item }) => (
+              <PopularJobCard
+                item={item}
+                selectedJob={selectedJob}
+                handleCardPress={handleCardPress}
+              />
+            )}
+            keyExtractor={(item) => item.job_id}
+            contentContainerStyle={{ columnGap: SIZES.medium }}
+            horizontal
           />
         )}
       </View>
